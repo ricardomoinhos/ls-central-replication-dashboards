@@ -1,0 +1,1022 @@
+{
+    "$schema": "https://dataexplorer.azure.com/static/d/schema/75/dashboard.json",
+    "id": "c2d31670-149a-4d42-a5d8-7f5fa9859726",
+    "eTag": "6321a5fb-6bd7-4f2b-a82d-22fb31561c91",
+    "title": "OfflinePOS-Transactions_Dashboard",
+    "schema_version": 75,
+    "tiles": [
+        {
+            "id": "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
+            "title": "Transaction Replication Status",
+            "visualType": "table",
+            "pageId": "d24b07fa-ae50-43bf-9d63-87515e37d492",
+            "layout": {
+                "x": 0,
+                "y": 13,
+                "width": 24,
+                "height": 15
+            },
+            "queryRef": {
+                "kind": "query",
+                "queryId": "4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f9a"
+            },
+            "visualOptions": {
+                "table__enableRenderLinks": true,
+                "colorRulesDisabled": false,
+                "crossFilterDisabled": false,
+                "drillthroughDisabled": false,
+                "crossFilter": [],
+                "drillthrough": [],
+                "table__renderLinks": [],
+                "colorRules": [
+                    {
+                        "id": "02faa996-a738-4e31-bb2b-9576af0de924",
+                        "ruleType": "colorByCondition",
+                        "applyToColumn": null,
+                        "hideText": false,
+                        "applyTo": "rows",
+                        "conditions": [
+                            {
+                                "operator": "==",
+                                "column": "Result",
+                                "values": [
+                                    "Error"
+                                ]
+                            }
+                        ],
+                        "chainingOperator": "and",
+                        "colorStyle": "bold",
+                        "color": "red",
+                        "tag": "",
+                        "icon": null,
+                        "ruleName": "",
+                        "visualType": "table"
+                    },
+                    {
+                        "id": "ef833700-b6dc-4bd8-84a1-791065f8d8c8",
+                        "ruleType": "colorByCondition",
+                        "applyToColumn": null,
+                        "hideText": false,
+                        "applyTo": "rows",
+                        "conditions": [
+                            {
+                                "operator": "==",
+                                "column": "Result",
+                                "values": [
+                                    "Success"
+                                ]
+                            },
+                            {
+                                "operator": "==",
+                                "column": "Stage",
+                                "values": [
+                                    "Enqueued"
+                                ]
+                            }
+                        ],
+                        "chainingOperator": "and",
+                        "colorStyle": "bold",
+                        "color": "yellow",
+                        "tag": "",
+                        "icon": null,
+                        "ruleName": "",
+                        "visualType": "table"
+                    },
+                    {
+                        "id": "1429fafc-8cc7-4105-9f57-a9e945761417",
+                        "ruleType": "colorByCondition",
+                        "ruleName": "",
+                        "applyTo": "rows",
+                        "conditions": [
+                            {
+                                "operator": "==",
+                                "column": "Stage",
+                                "values": [
+                                    "Applied"
+                                ]
+                            },
+                            {
+                                "operator": "==",
+                                "column": "Result",
+                                "values": [
+                                    "Success"
+                                ]
+                            }
+                        ],
+                        "chainingOperator": "and",
+                        "colorStyle": "bold",
+                        "applyToColumn": null,
+                        "hideText": false,
+                        "color": "green",
+                        "tag": "",
+                        "icon": null,
+                        "visualType": "table"
+                    },
+                    {
+                        "id": "9da4c0da-f7c5-433f-a6ac-b6d3d13eca84",
+                        "ruleType": "colorByCondition",
+                        "applyToColumn": null,
+                        "hideText": false,
+                        "applyTo": "rows",
+                        "conditions": [
+                            {
+                                "operator": "==",
+                                "column": "Stage",
+                                "values": [
+                                    "Posted"
+                                ]
+                            },
+                            {
+                                "operator": "==",
+                                "column": "Result",
+                                "values": [
+                                    "Success"
+                                ]
+                            }
+                        ],
+                        "chainingOperator": "and",
+                        "colorStyle": "bold",
+                        "color": "yellow",
+                        "tag": "",
+                        "icon": null,
+                        "ruleName": "",
+                        "visualType": "table"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e",
+            "title": "Transactions in Error",
+            "visualType": "table",
+            "pageId": "d24b07fa-ae50-43bf-9d63-87515e37d492",
+            "layout": {
+                "x": 8,
+                "y": 4,
+                "width": 16,
+                "height": 9
+            },
+            "queryRef": {
+                "kind": "query",
+                "queryId": "5e6f7a8b-9c0d-1e2f-3a4b-5c6d7e8f9a0b"
+            },
+            "visualOptions": {
+                "table__enableRenderLinks": false,
+                "colorRulesDisabled": false,
+                "crossFilterDisabled": false,
+                "drillthroughDisabled": false,
+                "crossFilter": [],
+                "drillthrough": [],
+                "table__renderLinks": [],
+                "colorRules": [
+                    {
+                        "id": "9a9c6aca-4954-4daf-8649-b221f240b4bc",
+                        "ruleType": "colorByCondition",
+                        "applyToColumn": "FailureReason",
+                        "hideText": false,
+                        "applyTo": "cells",
+                        "conditions": [
+                            {
+                                "operator": "==",
+                                "column": "eventId",
+                                "values": [
+                                    "AL10012870"
+                                ]
+                            },
+                            {
+                                "operator": "==",
+                                "column": "Stage",
+                                "values": [
+                                    "Applied"
+                                ]
+                            }
+                        ],
+                        "chainingOperator": "and",
+                        "colorStyle": "bold",
+                        "color": "red",
+                        "tag": "HO",
+                        "icon": "critical",
+                        "ruleName": "",
+                        "visualType": "table"
+                    },
+                    {
+                        "id": "8d59cdd8-4bb4-4a8c-8145-e42b1f9e7b53",
+                        "ruleType": "colorByCondition",
+                        "applyToColumn": "FailureReason",
+                        "hideText": false,
+                        "applyTo": "cells",
+                        "conditions": [
+                            {
+                                "operator": "==",
+                                "column": "eventId",
+                                "values": [
+                                    "AL10012870"
+                                ]
+                            },
+                            {
+                                "operator": "==",
+                                "column": "Stage",
+                                "values": [
+                                    "Enqueued"
+                                ]
+                            }
+                        ],
+                        "chainingOperator": "and",
+                        "colorStyle": "bold",
+                        "color": "red",
+                        "tag": "POS",
+                        "icon": "critical",
+                        "ruleName": "",
+                        "visualType": "table"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "3c4d5e6f-7a8b-9c0d-1e2f-3a4b5c6d7e8f",
+            "title": "Last Replication per POS",
+            "description": "Shows the latest replication per POS",
+            "visualType": "table",
+            "pageId": "d24b07fa-ae50-43bf-9d63-87515e37d492",
+            "layout": {
+                "x": 0,
+                "y": 4,
+                "width": 8,
+                "height": 9
+            },
+            "queryRef": {
+                "kind": "query",
+                "queryId": "6f7a8b9c-0d1e-2f3a-4b5c-6d7e8f9a0b1c"
+            },
+            "visualOptions": {
+                "table__enableRenderLinks": false,
+                "colorRulesDisabled": true,
+                "crossFilterDisabled": false,
+                "drillthroughDisabled": false,
+                "crossFilter": [
+                    {
+                        "interaction": "column",
+                        "property": "userTelemetryId",
+                        "parameterId": "721e7e61-b39a-48c0-8dff-c82b3e0719f9",
+                        "disabled": false
+                    },
+                    {
+                        "interaction": "column",
+                        "property": "posName",
+                        "parameterId": "9cabfeb1-a5c3-441c-8471-77ece08d2a5e",
+                        "disabled": false
+                    }
+                ],
+                "drillthrough": [],
+                "table__renderLinks": [],
+                "colorRules": []
+            }
+        },
+        {
+            "id": "7a8b9c0d-1e2f-3a4b-5c6d-7e8f9a0b1c2d",
+            "title": "Errors in Last 1 Hour",
+            "description": "Count of transaction errors (AL10012870) in the last 1 hour",
+            "visualType": "card",
+            "pageId": "89054766-009f-4ce5-9520-080691b04c7a",
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 3,
+                "height": 4
+            },
+            "queryRef": {
+                "kind": "query",
+                "queryId": "7b8c9d0e-1f2a-3b4c-5d6e-7f8a9b0c1d2e"
+            },
+            "visualOptions": {
+                "multiStat__textSize": "large",
+                "multiStat__valueColumn": null,
+                "colorRulesDisabled": true,
+                "colorRules": []
+            }
+        },
+        {
+            "id": "ddc14f85-12a6-43ff-b66d-4511a3119422",
+            "title": "Errors in Last 8 Hour",
+            "description": "Count of transaction errors (AL10012870) in the last 8 hour",
+            "visualType": "card",
+            "pageId": "89054766-009f-4ce5-9520-080691b04c7a",
+            "layout": {
+                "x": 3,
+                "y": 0,
+                "width": 3,
+                "height": 4
+            },
+            "queryRef": {
+                "kind": "query",
+                "queryId": "6b802abd-3954-47cf-a892-799e8303f22a"
+            },
+            "visualOptions": {
+                "multiStat__textSize": "large",
+                "multiStat__valueColumn": null,
+                "colorRulesDisabled": true,
+                "colorRules": []
+            }
+        },
+        {
+            "id": "4c6d4264-448d-45be-b655-73b47ceec3b6",
+            "title": "",
+            "visualType": "markdownCard",
+            "pageId": "d24b07fa-ae50-43bf-9d63-87515e37d492",
+            "layout": {
+                "x": 3,
+                "y": 0,
+                "width": 17,
+                "height": 4
+            },
+            "markdownText": "",
+            "visualOptions": {}
+        },
+        {
+            "id": "c38ccd79-a7c3-4d53-90db-a9907e671c7b",
+            "title": "Current Nr of Errors",
+            "description": "Count the current number of transaction errors",
+            "visualType": "card",
+            "pageId": "d24b07fa-ae50-43bf-9d63-87515e37d492",
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 3,
+                "height": 4
+            },
+            "queryRef": {
+                "kind": "query",
+                "queryId": "386d61b2-8d9a-4e43-a987-90ab0a58477f"
+            },
+            "visualOptions": {
+                "multiStat__textSize": "large",
+                "multiStat__valueColumn": null,
+                "colorRulesDisabled": false,
+                "colorRules": [
+                    {
+                        "id": "324deb1c-150b-415f-9f20-61691ad0b938",
+                        "ruleType": "colorByCondition",
+                        "applyToColumn": null,
+                        "hideText": false,
+                        "applyTo": "cells",
+                        "conditions": [
+                            {
+                                "operator": "==",
+                                "column": null,
+                                "values": [
+                                    "0"
+                                ]
+                            }
+                        ],
+                        "chainingOperator": "and",
+                        "colorStyle": "bold",
+                        "color": "green",
+                        "tag": "",
+                        "icon": "completed",
+                        "ruleName": "",
+                        "visualType": "card"
+                    },
+                    {
+                        "id": "7229356f-0af9-417f-acc0-58169ba72c85",
+                        "ruleType": "colorByCondition",
+                        "applyToColumn": null,
+                        "hideText": false,
+                        "applyTo": "cells",
+                        "conditions": [
+                            {
+                                "operator": ">",
+                                "column": null,
+                                "values": [
+                                    "0"
+                                ]
+                            }
+                        ],
+                        "chainingOperator": "and",
+                        "colorStyle": "bold",
+                        "color": "red",
+                        "tag": "",
+                        "icon": null,
+                        "ruleName": "",
+                        "visualType": "card"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "421e2314-c5d1-4072-94a8-3ec1c750cfd8",
+            "title": "Errors per POS (Range With Events Only)",
+            "visualType": "stackedcolumn",
+            "pageId": "88aaec0d-03c3-416e-bdbb-cb6fbd59e38c",
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 23,
+                "height": 9
+            },
+            "queryRef": {
+                "kind": "query",
+                "queryId": "f5475b67-5581-4ff3-8cc0-87919debb6c0"
+            },
+            "visualOptions": {
+                "multipleYAxes": {
+                    "base": {
+                        "id": "-1",
+                        "label": "",
+                        "columns": [],
+                        "yAxisMaximumValue": null,
+                        "yAxisMinimumValue": null,
+                        "yAxisScale": "linear",
+                        "horizontalLines": []
+                    },
+                    "additional": [],
+                    "showMultiplePanels": false
+                },
+                "hideLegend": false,
+                "legendLocation": "bottom",
+                "xColumnTitle": "",
+                "xColumn": null,
+                "yColumns": null,
+                "seriesColumns": null,
+                "xAxisScale": "linear",
+                "verticalLine": "",
+                "crossFilterDisabled": false,
+                "drillthroughDisabled": false,
+                "seriesColors": {},
+                "forceAxisTicks": false,
+                "crossFilter": [],
+                "drillthrough": []
+            }
+        },
+        {
+            "id": "a5abfa85-6458-4edf-892f-8d3d9e26d6cf",
+            "title": "Errors per POS (Full Time Range)",
+            "visualType": "stackedcolumn",
+            "pageId": "88aaec0d-03c3-416e-bdbb-cb6fbd59e38c",
+            "layout": {
+                "x": 0,
+                "y": 18,
+                "width": 23,
+                "height": 9
+            },
+            "queryRef": {
+                "kind": "query",
+                "queryId": "0ffee29b-0f30-4ac7-96e7-ff0d582dab22"
+            },
+            "visualOptions": {
+                "multipleYAxes": {
+                    "base": {
+                        "id": "-1",
+                        "label": "",
+                        "columns": [],
+                        "yAxisMaximumValue": null,
+                        "yAxisMinimumValue": null,
+                        "yAxisScale": "linear",
+                        "horizontalLines": []
+                    },
+                    "additional": [],
+                    "showMultiplePanels": false
+                },
+                "hideLegend": false,
+                "legendLocation": "bottom",
+                "xColumnTitle": "",
+                "xColumn": null,
+                "yColumns": null,
+                "seriesColumns": null,
+                "xAxisScale": "linear",
+                "verticalLine": "",
+                "crossFilterDisabled": false,
+                "drillthroughDisabled": false,
+                "seriesColors": {},
+                "forceAxisTicks": false,
+                "crossFilter": [],
+                "drillthrough": []
+            }
+        },
+        {
+            "id": "851c6918-b0b9-4a57-be1a-ca3be0b9b7b9",
+            "title": "Store / POS Terminal No. missing in telemetry",
+            "visualType": "table",
+            "pageId": "74e45b86-1389-4795-9d59-19b46012a69e",
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 9,
+                "height": 7
+            },
+            "queryRef": {
+                "kind": "query",
+                "queryId": "0b3f9a2b-9286-4fbd-86b1-f3fb2fb99700"
+            },
+            "visualOptions": {
+                "table__enableRenderLinks": true,
+                "colorRulesDisabled": false,
+                "crossFilterDisabled": false,
+                "drillthroughDisabled": false,
+                "crossFilter": [],
+                "drillthrough": [],
+                "table__renderLinks": [],
+                "colorRules": [
+                    {
+                        "id": "30a48008-ce19-435d-97d3-c004ee07c90e",
+                        "ruleType": "colorByCondition",
+                        "applyToColumn": null,
+                        "hideText": false,
+                        "applyTo": "rows",
+                        "conditions": [
+                            {
+                                "operator": "!=",
+                                "column": "StoreNo",
+                                "values": [
+                                    "''"
+                                ]
+                            }
+                        ],
+                        "chainingOperator": "and",
+                        "colorStyle": "bold",
+                        "color": "yellow",
+                        "tag": "",
+                        "icon": null,
+                        "ruleName": "",
+                        "visualType": "table"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "09750a8d-7487-4f04-bf34-fb67b9af77c2",
+            "title": "Store / POS Terminal No. missing in POS Mapping table",
+            "visualType": "table",
+            "pageId": "74e45b86-1389-4795-9d59-19b46012a69e",
+            "layout": {
+                "x": 9,
+                "y": 0,
+                "width": 9,
+                "height": 7
+            },
+            "queryRef": {
+                "kind": "query",
+                "queryId": "1d6c43d1-fc0d-4da2-9aec-57fb7342644c"
+            },
+            "visualOptions": {
+                "table__enableRenderLinks": true,
+                "colorRulesDisabled": false,
+                "crossFilterDisabled": false,
+                "drillthroughDisabled": false,
+                "crossFilter": [],
+                "drillthrough": [],
+                "table__renderLinks": [],
+                "colorRules": [
+                    {
+                        "id": "94893bb5-8b4b-482f-91ad-5324c3768905",
+                        "ruleType": "colorByCondition",
+                        "ruleName": "",
+                        "applyTo": "rows",
+                        "conditions": [
+                            {
+                                "operator": "!=",
+                                "column": "StoreNo",
+                                "values": [
+                                    "''"
+                                ]
+                            }
+                        ],
+                        "chainingOperator": "and",
+                        "colorStyle": "bold",
+                        "applyToColumn": null,
+                        "hideText": false,
+                        "color": "yellow",
+                        "tag": "",
+                        "icon": null,
+                        "visualType": "table"
+                    }
+                ]
+            }
+        }
+    ],
+    "baseQueries": [
+        {
+            "id": "48a5412a-eb52-42fc-ab72-028b82e1e00d",
+            "queryId": "f758f7bb-1358-49b2-9998-4c85a52cb110",
+            "variableName": "pos_mapping"
+        },
+        {
+            "id": "995f8247-a9bf-4912-836e-c9b58efcdf29",
+            "queryId": "99372d64-4f0b-4846-b800-904a416903b8",
+            "variableName": "baseTransactions"
+        }
+    ],
+    "parameters": [
+        {
+            "kind": "string",
+            "id": "5aafb076-ee4f-40c5-aca1-e4aeae7f270b",
+            "displayName": "AAD Tenant ID",
+            "description": "AAD Tenant ID",
+            "variableName": "param_aadTenantId",
+            "selectionType": "scalar",
+            "includeAllOption": true,
+            "defaultValue": {
+                "kind": "all"
+            },
+            "dataSource": {
+                "kind": "query",
+                "columns": {
+                    "value": "AAD Tenant Id",
+                    "label": "AAD Tenant Id"
+                },
+                "queryRef": {
+                    "kind": "query",
+                    "queryId": "8243b8c6-8d0c-4bd3-a135-94d2e6f21dc0"
+                },
+                "autoReset": true
+            },
+            "showOnPages": {
+                "kind": "all"
+            }
+        },
+        {
+            "kind": "duration",
+            "id": "55df042a-5181-4a44-9480-fa1357693c5d",
+            "displayName": "Time",
+            "description": "",
+            "beginVariableName": "_startTime",
+            "endVariableName": "_endTime",
+            "defaultValue": {
+                "kind": "dynamic",
+                "count": 7,
+                "unit": "days"
+            },
+            "showOnPages": {
+                "kind": "all"
+            }
+        },
+        {
+            "kind": "string",
+            "id": "d7516979-1654-4e6d-93f5-fe6016ae9f2c",
+            "displayName": "Aggregation Interval",
+            "description": "Option to group by hour, day, ...",
+            "variableName": "param_aggregationInterval",
+            "selectionType": "scalar",
+            "includeAllOption": false,
+            "defaultValue": {
+                "kind": "value",
+                "value": "1h"
+            },
+            "dataSource": {
+                "kind": "static",
+                "values": [
+                    {
+                        "displayText": "By hour",
+                        "value": "1h"
+                    },
+                    {
+                        "displayText": "By day",
+                        "value": "1d"
+                    }
+                ]
+            },
+            "showOnPages": {
+                "kind": "selection",
+                "pageIds": [
+                    "88aaec0d-03c3-416e-bdbb-cb6fbd59e38c"
+                ]
+            }
+        },
+        {
+            "kind": "string",
+            "id": "721e7e61-b39a-48c0-8dff-c82b3e0719f9",
+            "displayName": "User Telemetry ID",
+            "description": "User Telemetry ID",
+            "variableName": "param_userTelemetryId",
+            "selectionType": "scalar",
+            "includeAllOption": true,
+            "defaultValue": {
+                "kind": "all"
+            },
+            "dataSource": {
+                "kind": "query",
+                "columns": {
+                    "value": "User Telemetry Id",
+                    "label": "User Telemetry Id"
+                },
+                "queryRef": {
+                    "kind": "query",
+                    "queryId": "793c6bc7-0004-4d73-96e7-64ac1e24240f"
+                },
+                "autoReset": true
+            },
+            "showOnPages": {
+                "kind": "all"
+            }
+        },
+        {
+            "kind": "string",
+            "id": "9cabfeb1-a5c3-441c-8471-77ece08d2a5e",
+            "displayName": "Point of Sales",
+            "description": "List of Point of Sales",
+            "variableName": "param_posName",
+            "selectionType": "array",
+            "includeAllOption": true,
+            "defaultValue": {
+                "kind": "all"
+            },
+            "dataSource": {
+                "kind": "query",
+                "columns": {
+                    "value": "POS Name",
+                    "label": "POS Name"
+                },
+                "queryRef": {
+                    "kind": "query",
+                    "queryId": "f45e477b-4201-488d-8b8f-599fda5b6732"
+                },
+                "autoReset": true
+            },
+            "showOnPages": {
+                "kind": "all"
+            }
+        },
+        {
+            "kind": "string",
+            "id": "eaed234e-a5eb-4977-a8dd-f376cf795422",
+            "displayName": "POS Terminal No.",
+            "description": "List of Point of Sales",
+            "variableName": "param_posTerminalNo",
+            "selectionType": "array",
+            "includeAllOption": true,
+            "defaultValue": {
+                "kind": "all"
+            },
+            "dataSource": {
+                "kind": "query",
+                "columns": {
+                    "value": "POS Terminal No.",
+                    "label": "POS Terminal No."
+                },
+                "queryRef": {
+                    "kind": "query",
+                    "queryId": "ab3bd1a0-5138-47ea-b020-8671312f85d1"
+                },
+                "autoReset": true
+            },
+            "showOnPages": {
+                "kind": "all"
+            }
+        }
+    ],
+    "dataSources": [
+        {
+            "id": "ef1fd2d2-c33a-4d82-84ad-f35777310387",
+            "kind": "manual-kusto",
+            "name": "LSTelemetryEventsSample",
+            "clusterUri": "https://kvc-muz4csdv3knyqrkymf.northeurope.kusto.windows.net/",
+            "database": "OfflinePOSTelemetryTest"
+        },
+        {
+            "id": "0c1bbbfd-e4cd-4944-b7d3-bbb3a25dd2af",
+            "kind": "manual-kusto",
+            "name": "appInsights",
+            "clusterUri": "https://ade.applicationinsights.io/subscriptions/2588dc58-992b-412b-bb4c-dc7158ca1c40/resourceGroups/DefaultResourceGroup-NEU/providers/microsoft.insights/components/TestApplicationInsights",
+            "database": "TestApplicationInsights"
+        }
+    ],
+    "pages": [
+        {
+            "name": "Current Status",
+            "id": "d24b07fa-ae50-43bf-9d63-87515e37d492"
+        },
+        {
+            "name": "Statistics",
+            "id": "89054766-009f-4ce5-9520-080691b04c7a"
+        },
+        {
+            "name": "Charts",
+            "id": "88aaec0d-03c3-416e-bdbb-cb6fbd59e38c"
+        },
+        {
+            "name": "Validation",
+            "id": "74e45b86-1389-4795-9d59-19b46012a69e"
+        }
+    ],
+    "queries": [
+        {
+            "dataSource": {
+                "kind": "inline",
+                "dataSourceId": "0c1bbbfd-e4cd-4944-b7d3-bbb3a25dd2af"
+            },
+            "text": "//\nlet t =\nbaseTransactions\n| where timestamp between (_startTime .. _endTime)\n;\n//\n// Get POS Mapping table for possible filtering\n//\nlet posMapping = pos_mapping\n  | where user_telemetry_id has_any (param_userTelemetryId)\n  | where pos_name has_any (param_posName)\n  | where pos_terminal_no has_any (param_posTerminalNo)\n;\n//\n// 1) Latest event per TransactionKey (for \"current status\" + last event details)\n//\nlet latestPerTxn =\nt\n| summarize\n    arg_max(timestamp,\n            eventId, message, Stage, Result, StoreNo, POSTerminalNo, TransactionNo, TableNo, FailureReason,\n            alUserId, alSessionId, environmentName, environmentType\n    ) by TransactionKey;\n//\n// 2) Last sent time per TransactionKey\n//\nlet lastSentPerTxn =\n  t\n  | where Stage == 'Enqueued'\n  | where Result == 'Success'\n  | summarize LastSentTime = max(timestamp) by TransactionKey\n;\n//\n// 3) Last error time (and optionally last error text) per TransactionKey\n//\nlet lastErrorPerTxn =\n  t\n  | where Result == 'Error'\n  | summarize\n    LastErrorTime = max(timestamp),\n    LastFailureReason = arg_max(timestamp, FailureReason).FailureReason\n    by TransactionKey\n;\n//\nlatestPerTxn\n| join kind=leftouter lastSentPerTxn on TransactionKey\n| join kind=leftouter lastErrorPerTxn on TransactionKey\n| join kind=inner (\n    posMapping\n    | project pos_terminal_no, user_telemetry_id, pos_name  // Keep only needed fields\n)\n// on $left.usertelemetryId == $right.user_telemetry_id\non $left.POSTerminalNo == $right.pos_terminal_no\n| extend TransactionStatus = case(\n    (Stage == 'Posted'), \"Transaction has been posted in POS but not yet sent to Service Bus/Azure Storage\",\n    (Stage == 'Enqueued' and Result == 'Error'), \"Transaction has not been sent to Service Bus/Azure Storage due to an error\",\n    (Stage == 'Enqueued' and Result == 'Success'), \"Transaction has been successfully sent to Service Bus/Azure Storage\",\n    (Stage == 'Applied' and Result == 'Error'), \"Transaction has been posted in POS and sent to Service Bus/Azure Storage but failed to be applied in Headoffice\",\n    (Stage == 'Applied' and Result == 'Success'), \"Transaction has been successfully applied in Headoffice\",\n    \"Unknown status\"\n)\n| project\n    timestamp,                  // last event timestamp\n    Stage,\n    Result,\n    TransactionNo,\n    StoreNo,\n    POSTerminalNo,\n    TransactionStatus,\n    FailureReason,                  // error text on the *last event* (if last event is 0003)\n    eventId,                    // last event id\n    LastSentTime,\n    LastErrorTime,\n    LastFailureReason,\n    message,\n    TransactionKey,\n    alUserId,\n    alSessionId,\n    TableNo,\n| sort by timestamp desc",
+            "id": "4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f9a",
+            "usedVariables": [
+                "_endTime",
+                "_startTime",
+                "baseTransactions",
+                "param_posName",
+                "param_posTerminalNo",
+                "param_userTelemetryId",
+                "pos_mapping"
+            ]
+        },
+        {
+            "dataSource": {
+                "kind": "inline",
+                "dataSourceId": "0c1bbbfd-e4cd-4944-b7d3-bbb3a25dd2af"
+            },
+            "text": "let t =\nbaseTransactions\n| where timestamp between (_startTime .. _endTime)\n| project timestamp,\n    Stage,\n    Result,\n    TransactionKey,\n    StoreNo,\n    POSTerminalNo,\n    TransactionNo,\n    TableNo,\n    FailureReason,\n    eventId,\n    alUserId,\n    message\n;\n//\n// Step 1: Get the latest finish event per TransactionKey\n//\nlet finishedEvents = t\n| where Stage == 'Applied'\n    and Result == 'Success'\n| summarize MaxFinishTime = max(timestamp) by TransactionKey\n;\n//\n// Step 2: Get all error events\n//\nlet errorEvents = t\n| where Result == 'Error'\n;\n//\n// Step 3 - Get POS Mapping table for possible filtering\n//\nlet posMapping = pos_mapping\n| where user_telemetry_id has_any (param_userTelemetryId)\n| where pos_name has_any (param_posName)\n| where pos_terminal_no has_any (param_posTerminalNo)\n;\n//\n// Step 4: Join filtered errorEvents with posMapping to allow pos_name filtering\n//\nerrorEvents\n| join kind=leftanti finishedEvents on TransactionKey\n| extend TransactionStatus = case(\n    (Stage == 'Posted'), \"Transaction has been posted in POS but not yet sent to Service Bus/Azure Storage\",\n    (Stage == 'Enqueued' and Result == 'Error'), \"Transaction has not been sent to Service Bus/Azure Storage due to an error\",\n    (Stage == 'Enqueued' and Result == 'Success'), \"Transaction has been successfully sent to Service Bus/Azure Storage\",\n    (Stage == 'Applied' and Result == 'Error'), \"Transaction has been posted in POS and sent to Service Bus/Azure Storage but failed to be applied in Headoffice\",\n    (Stage == 'Applied' and Result == 'Success'), \"Transaction has been successfully applied in Headoffice\",\n    \"Unknown status\"\n)\n| project timestamp\n, StoreNo\n, POSTerminalNo\n, TransactionNo\n, TransactionStatus\n, Stage\n, Result\n, FailureReason\n, alUserId\n, TableNo\n, message\n, eventId\n| sort by timestamp desc",
+            "id": "5e6f7a8b-9c0d-1e2f-3a4b-5c6d7e8f9a0b",
+            "usedVariables": [
+                "_endTime",
+                "_startTime",
+                "baseTransactions",
+                "param_posName",
+                "param_posTerminalNo",
+                "param_userTelemetryId",
+                "pos_mapping"
+            ]
+        },
+        {
+            "dataSource": {
+                "kind": "inline",
+                "dataSourceId": "0c1bbbfd-e4cd-4944-b7d3-bbb3a25dd2af"
+            },
+            "text": "let t = \nbaseTransactions\n| order by timestamp desc\n;\n//\n// Step 1: Get all events\n//\nlet allEvents = t;\n//\n// Step 2: Join the POSes list with the events\n//\npos_mapping\n| where user_telemetry_id has_any (param_userTelemetryId)\n| where pos_name has_any (param_posName)\n| where pos_terminal_no has_any (param_posTerminalNo)\n| join kind=leftouter (\n    allEvents\n)\n// on $left.user_telemetry_id == $right.userTelemetryId\non $left.pos_terminal_no == $right.POSTerminalNo\n| summarize LatestTimestamp = max(timestamp) by pos_terminal_no, pos_name, user_telemetry_id\n| project \n    posTerminalNo = pos_terminal_no,\n    posName = pos_name, \n    userTelemetryId = user_telemetry_id,\n    latestTimestamp = coalesce(format_datetime(LatestTimestamp, 'yyyy-MM-dd HH:mm:ss'), \"N/A\")",
+            "id": "6f7a8b9c-0d1e-2f3a-4b5c-6d7e8f9a0b1c",
+            "usedVariables": [
+                "baseTransactions",
+                "param_posName",
+                "param_posTerminalNo",
+                "param_userTelemetryId",
+                "pos_mapping"
+            ]
+        },
+        {
+            "dataSource": {
+                "kind": "inline",
+                "dataSourceId": "0c1bbbfd-e4cd-4944-b7d3-bbb3a25dd2af"
+            },
+            "text": "let t = \n  baseTransactions\n  | where timestamp >= ago(1h)\n  | where userTelemetryId has_any (param_userTelemetryId)\n;\n//\nlet posMapping = pos_mapping\n| where user_telemetry_id has_any (param_userTelemetryId)\n| where pos_name has_any (param_posName)\n| where pos_terminal_no has_any (param_posTerminalNo);\n//\nt\n| join kind=inner (\n    posMapping\n    | project pos_terminal_no, user_telemetry_id, pos_name\n) on $left.POSTerminalNo == $right.pos_terminal_no\n| count\n| project [\"Errors in Last 1h\"] = Count",
+            "id": "7b8c9d0e-1f2a-3b4c-5d6e-7f8a9b0c1d2e",
+            "usedVariables": [
+                "baseTransactions",
+                "param_posName",
+                "param_posTerminalNo",
+                "param_userTelemetryId",
+                "pos_mapping"
+            ]
+        },
+        {
+            "dataSource": {
+                "kind": "inline",
+                "dataSourceId": "0c1bbbfd-e4cd-4944-b7d3-bbb3a25dd2af"
+            },
+            "text": "let t = \n  baseTransactions\n  | where timestamp >= ago(8h)\n  | where userTelemetryId has_any (param_userTelemetryId)\n;\n//\nlet posMapping =\n  pos_mapping\n  | where user_telemetry_id has_any (param_userTelemetryId)\n  | where pos_name has_any (param_posName)\n  | where pos_terminal_no has_any (param_posTerminalNo);\n//\nt\n  | join kind=inner (\n      posMapping\n      | project pos_terminal_no, user_telemetry_id, pos_name\n  ) on $left.POSTerminalNo == $right.pos_terminal_no\n  | count\n  | project [\"Errors in Last 8h\"] = Count\n;",
+            "id": "6b802abd-3954-47cf-a892-799e8303f22a",
+            "usedVariables": [
+                "baseTransactions",
+                "param_posName",
+                "param_posTerminalNo",
+                "param_userTelemetryId",
+                "pos_mapping"
+            ]
+        },
+        {
+            "dataSource": {
+                "kind": "inline",
+                "dataSourceId": "0c1bbbfd-e4cd-4944-b7d3-bbb3a25dd2af"
+            },
+            "text": "let trans_replic_eventId = 'AL10012870';\n\nlet t =\n    baseTransactions\n    | where timestamp between (_startTime .. _endTime)\n    | project timestamp, eventId, Stage, Result, TransactionKey, TransactionNo, POSTerminalNo\n;\n//\n// Step 1: Get the latest finish event per TransactionKey\n//\nlet finishedEvents =\nt\n| where eventId == trans_replic_eventId\n    and Stage == 'Applied'\n    and Result == 'Success'\n| summarize MaxFinishTime = max(timestamp) by TransactionKey;\n//\n// Step 2: Get all error events\n//\nlet errorEvents = t\n| where Result == 'Error'\n;\n//\n// Get POS Mapping table for possible filtering\n//\nlet posTerminals =\n    pos_mapping\n    | where user_telemetry_id has_any (param_userTelemetryId)\n    | where pos_name has_any (param_posName)\n    | where pos_terminal_no has_any (param_posTerminalNo)\n    | project pos_terminal_no\n;\n\n//\n// Step 4: Join filtered errorEvents with posMapping to allow pos_name filtering\n//\nerrorEvents\n| where eventId == trans_replic_eventId\n| join kind=leftanti finishedEvents on TransactionKey\n// | join kind=leftouter finished on TransactionKey\n// | where isnull(MaxFinishTime) or timestamp > MaxFinishTime\n| where POSTerminalNo in (posTerminals)\n| summarize ErrorEvents = count()",
+            "id": "386d61b2-8d9a-4e43-a987-90ab0a58477f",
+            "usedVariables": [
+                "_endTime",
+                "_startTime",
+                "baseTransactions",
+                "param_posName",
+                "param_posTerminalNo",
+                "param_userTelemetryId",
+                "pos_mapping"
+            ]
+        },
+        {
+            "dataSource": {
+                "kind": "inline",
+                "dataSourceId": "0c1bbbfd-e4cd-4944-b7d3-bbb3a25dd2af"
+            },
+            "text": "let aggregationInterval = totimespan(param_aggregationInterval);\nlet posName = param_posName;\n//\nlet t = \nbaseTransactions\n| where userTelemetryId has_any (param_userTelemetryId)\n;\n// Get POS Mapping table for filtering\nlet posMapping = pos_mapping\n\t| where user_telemetry_id has_any (param_userTelemetryId)\n\t| where pos_name has_any (param_posName)\n\t| where pos_terminal_no has_any (param_posTerminalNo)\n;\n//\nt\n| join kind=inner (\n    posMapping\n    | project pos_terminal_no, user_telemetry_id, pos_name  // Keep only needed fields\n)\n// on $left.userTelemetryId == $right.user_telemetry_id\non $left.POSTerminalNo == $right.pos_terminal_no\n| summarize count() by bin(timestamp, aggregationInterval), POSTerminalNo\n| render columnchart",
+            "id": "f5475b67-5581-4ff3-8cc0-87919debb6c0",
+            "usedVariables": [
+                "baseTransactions",
+                "param_aggregationInterval",
+                "param_posName",
+                "param_posTerminalNo",
+                "param_userTelemetryId",
+                "pos_mapping"
+            ]
+        },
+        {
+            "dataSource": {
+                "kind": "inline",
+                "dataSourceId": "0c1bbbfd-e4cd-4944-b7d3-bbb3a25dd2af"
+            },
+            "text": "let aggregationInterval = totimespan(param_aggregationInterval);\n//\nlet TimeBins = range timestamp from _startTime to _endTime step aggregationInterval;\n\tlet t = \n    baseTransactions\n    | where userTelemetryId has_any (param_userTelemetryId)\n;\n//\n// Get POS Mapping table for filtering\nlet posMapping = pos_mapping\n| where user_telemetry_id has_any (param_userTelemetryId)\n| where pos_name has_any (param_posName)\n| where pos_terminal_no has_any (param_posTerminalNo)\n;\n//\nlet eventCount =\n  t\n  | join kind=inner (\n      posMapping\n      | project pos_terminal_no, user_telemetry_id, pos_name  // Keep only needed fields\n  )\n  // on $left.userTelemetryId == $right.user_telemetry_id\n  on $left.POSTerminalNo == $right.pos_terminal_no\n  | summarize count_ = count() by bin(timestamp, aggregationInterval), userTelemetryId, pos_terminal_no;\n\n// Outer join to include all time bins even with 0 events\nTimeBins\n| extend timestamp = bin(timestamp, aggregationInterval)  // Ensure bin alignment\n| join kind=leftouter eventCount on timestamp\n| project timestamp\n// , userTelemetryId = coalesce(userTelemetryId, \"N/A\"), eventCount = coalesce(count_, 0)\n, pos_terminal_no = coalesce(pos_terminal_no, \"N/A\"), eventCount = coalesce(count_, 0)\n// , pos_terminal_no\n| render columnchart\n",
+            "id": "0ffee29b-0f30-4ac7-96e7-ff0d582dab22",
+            "usedVariables": [
+                "_endTime",
+                "_startTime",
+                "baseTransactions",
+                "param_aggregationInterval",
+                "param_posName",
+                "param_posTerminalNo",
+                "param_userTelemetryId",
+                "pos_mapping"
+            ]
+        },
+        {
+            "dataSource": {
+                "kind": "inline",
+                "dataSourceId": "0c1bbbfd-e4cd-4944-b7d3-bbb3a25dd2af"
+            },
+            "text": "// Store/POS Terminal No. from telemetry events\r\nlet t =\r\n    baseTransactions\r\n    | where StoreNo <> '' and POSTerminalNo <> ''\r\n    | summarize by StoreNo, POSTerminalNo;\r\n\r\n// Store/POS Terminal No. from POS mapping table\r\nlet mapped_pos =\r\n    pos_mapping\r\n    | project StoreNo = tostring(store_no), POSTerminalNo = tostring(pos_terminal_no);\r\n\r\nmapped_pos\r\n| join kind=leftanti t on StoreNo, POSTerminalNo\r\n| project StoreNo, POSTerminalNo",
+            "id": "0b3f9a2b-9286-4fbd-86b1-f3fb2fb99700",
+            "usedVariables": [
+                "baseTransactions",
+                "pos_mapping"
+            ]
+        },
+        {
+            "dataSource": {
+                "kind": "inline",
+                "dataSourceId": "0c1bbbfd-e4cd-4944-b7d3-bbb3a25dd2af"
+            },
+            "text": "// Store/POS Terminal No. from telemetry events\r\nlet t =\r\n    baseTransactions\r\n    | where StoreNo <> '' and POSTerminalNo <> ''\r\n    | summarize by StoreNo, POSTerminalNo\r\n;\r\n\r\n// Store/POS Terminal No. from POS mapping table\r\nlet mapped_pos =\r\n    pos_mapping\r\n    | project StoreNo = tostring(store_no), POSTerminalNo = tostring(pos_terminal_no)\r\n;\r\n\r\nt\r\n| join kind=leftanti mapped_pos on StoreNo, POSTerminalNo\r\n| project StoreNo, POSTerminalNo\r\n;",
+            "id": "1d6c43d1-fc0d-4da2-9aec-57fb7342644c",
+            "usedVariables": [
+                "baseTransactions",
+                "pos_mapping"
+            ]
+        },
+        {
+            "id": "f758f7bb-1358-49b2-9998-4c85a52cb110",
+            "dataSource": {
+                "kind": "inline",
+                "dataSourceId": "0c1bbbfd-e4cd-4944-b7d3-bbb3a25dd2af"
+            },
+            "text": "// // \"store_no, pos_terminal_no\" is the key\r\n// datatable(store_no: string, pos_terminal_no: string, user_telemetry_id: string, pos_name: string)\r\n// [\r\n//   \"HO\", \"HO\", \"user_from_HO\", \"HO\",\r\n//   \"S0001\", \"P0001\", \"user_from_pos1\", \"POS1\",\r\n//   \"S0001\", \"P0002\", \"user_from_pos2\", \"POS2\",\r\n//   \"S0001\", \"P0003\", \"user_from_pos3\", \"POS3\"\r\n// ]\r\n//\r\nlet csvUrl = \"{CSV_URL_WITH_SAS}\";\r\nexternaldata(store_no: string, pos_terminal_no: string, user_telemetry_id: string, pos_name: string)\r\n[\r\n  csvUrl\r\n]\r\nwith (format=\"csv\", ignoreFirstRecord=true)\r\n| sort by store_no, pos_terminal_no asc",
+            "usedVariables": []
+        },
+        {
+            "id": "99372d64-4f0b-4846-b800-904a416903b8",
+            "dataSource": {
+                "kind": "inline",
+                "dataSourceId": "0c1bbbfd-e4cd-4944-b7d3-bbb3a25dd2af"
+            },
+            "text": "let trans_replic_eventId = 'AL10012870';\nlet t =\n  traces\n  | where customDimensions.eventId == trans_replic_eventId\n  | where customDimensions.aadTenantId has_any (param_aadTenantId)\n  | extend eventId = tostring(customDimensions.eventId)\n  | extend alUserId = tostring(customDimensions.alUserId)\n  | extend alSessionId = tostring(customDimensions.alSessionId)\n  | extend Stage = tostring(customDimensions.alStage)\n  | extend message = tostring(message)\n  | extend Result = tostring(customDimensions.alResult)\n  | extend TransactionKey = tostring(customDimensions.alTransactionKey)\n  | extend TableNo = tostring(customDimensions.alTableNo)\n  | extend FailureReason = tostring(customDimensions.alFailureReason)\n  | extend ErrorText = tostring(customDimensions.alErrorText)\n  | extend StoreNo =\n      case(\n          message == 'OnAfterSendTransByExternalStorageMessage',\n          toupper(extract(@\"s([^-]+)-\", 1, tostring(customDimensions.alPacketPrefix))),\n          tostring(customDimensions.alStoreNo)\n      )\n  | extend POSTerminalNo =\n      case(\n          message == 'OnAfterSendTransByExternalStorageMessage',\n          toupper(extract(@\"-p([^-]+)-\", 1, tostring(customDimensions.alPacketPrefix))),\n          tostring(customDimensions.alPOSTerminalNo)\n      )\n  | extend TransactionNo =\n      case(\n          message == 'OnAfterSendTransByExternalStorageMessage',\n        toint(extract(@\"-t([^-]+)-\", 1, tostring(customDimensions.alPacketPrefix))),\n          toint(customDimensions.alTransactionNo)\n      )\n  | extend aadTenantId = tostring(customDimensions.aadTenantId)\n  | extend environmentName = tostring(customDimensions.environmentName)\n  | extend environmentType = tostring(customDimensions.environmentType)\n  | extend userTelemetryId = case(\n      // user telemetry id was introduced in the platform in version 20.0\n      toint(substring(customDimensions.componentVersion,0,2)) >= 20, user_Id,\n      'N/A'\n  )\n;\nt",
+            "usedVariables": [
+                "param_aadTenantId"
+            ]
+        },
+        {
+            "dataSource": {
+                "kind": "inline",
+                "dataSourceId": "0c1bbbfd-e4cd-4944-b7d3-bbb3a25dd2af"
+            },
+            "text": "traces\n| where timestamp between (_startTime .. _endTime)\n| extend _aadTenantId = tostring(customDimensions.aadTenantId)\n| distinct _aadTenantId\n| where _aadTenantId <> ''\n| project [\"AAD Tenant Id\"] = _aadTenantId\n",
+            "id": "8243b8c6-8d0c-4bd3-a135-94d2e6f21dc0",
+            "usedVariables": [
+                "_endTime",
+                "_startTime"
+            ]
+        },
+        {
+            "dataSource": {
+                "kind": "inline",
+                "dataSourceId": "0c1bbbfd-e4cd-4944-b7d3-bbb3a25dd2af"
+            },
+            "text": "traces\n| where timestamp between (_startTime .. _endTime)\n| where customDimensions.aadTenantId has_any (param_aadTenantId)\n| extend componentVersion = tostring(customDimensions.componentVersion)\n| extend versionMajor = toint(substring(componentVersion, 0, 2))\n| extend usertelemetryId = case(versionMajor >= 20, user_Id, \"N/A\")\n| where usertelemetryId != \"N/A\" and isnotempty(usertelemetryId)\n| distinct usertelemetryId\n| project [\"User Telemetry Id\"] = usertelemetryId\n",
+            "id": "793c6bc7-0004-4d73-96e7-64ac1e24240f",
+            "usedVariables": [
+                "_endTime",
+                "_startTime",
+                "param_aadTenantId"
+            ]
+        },
+        {
+            "dataSource": {
+                "kind": "inline",
+                "dataSourceId": "0c1bbbfd-e4cd-4944-b7d3-bbb3a25dd2af"
+            },
+            "text": "datatable(pos_name: string)\n[\n  \"POS1\",\n  \"POS2\",\n  \"POS3\"\n]\n| project [\"POS Name\"] = pos_name",
+            "id": "f45e477b-4201-488d-8b8f-599fda5b6732",
+            "usedVariables": []
+        },
+        {
+            "dataSource": {
+                "kind": "inline",
+                "dataSourceId": "0c1bbbfd-e4cd-4944-b7d3-bbb3a25dd2af"
+            },
+            "text": "pos_mapping\n| project [\"POS Terminal No.\"] = pos_terminal_no",
+            "id": "ab3bd1a0-5138-47ea-b020-8671312f85d1",
+            "usedVariables": [
+                "pos_mapping"
+            ]
+        }
+    ],
+    "embeddedApps": []
+}
