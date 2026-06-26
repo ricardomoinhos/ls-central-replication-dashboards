@@ -49,6 +49,12 @@ This cost is not specific to the dashboard - it is the cost of having telemetry 
 
 ---
 
+## Screenshots
+
+![Current Status page](docs/images/dashboard-current_status_page.png)
+
+---
+
 ## Installation
 
 For instructions on how to set up the dashboard environment, see the [Installation Steps](docs/Installation-Steps.md).
