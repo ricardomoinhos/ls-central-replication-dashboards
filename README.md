@@ -58,3 +58,7 @@ This cost is not specific to the dashboard - it is the cost of having telemetry 
 ## Installation
 
 For instructions on how to set up the dashboard environment, see the [Installation Steps](docs/Installation-Steps.md).
+
+## Change History
+
+For a record of notable documentation and repository changes, see the [Change History](CHANGELOG.md).

@@ -8,7 +8,7 @@ This guide describes the steps required to set up the **Offline POS – Send Tra
 - [Step 1 – Set Up the Application Insights Resource](#1-set-up-the-application-insights-resource)
 - [Step 2 – Set Up Application Insights on the SaaS Environment](#2-set-up-application-insights-on-the-saas-environment)
 - [Step 3 – Set Up Application Insights on Each Offline POS](#3-set-up-application-insights-on-each-offline-pos)
-- [Step 4 – Install the Telemetry Extension on the Offline POS](#4-install-the-telemetry-extension-on-the-offline-pos)
+- [Step 4 – Install the Telemetry Extension on the SaaS Environment and Offline POS](#4-install-the-telemetry-extension-on-the-saas-environment-and-offline-pos)
 - [Step 5 – Create the POS Mapping CSV File](#5-create-the-pos-mapping-csv-file)
 - [Step 6 – Create an Azure Storage Account and Container](#6-create-an-azure-storage-account-and-container)
 - [Step 7 – Generate a SAS Link for the CSV File](#7-generate-a-sas-link-for-the-csv-file)
@@ -63,9 +63,16 @@ Configure each Offline POS terminal to send telemetry data to Application Insigh
 
 ---
 
-### 4. Install the Telemetry Extension on the Offline POS
+### 4. Install the Telemetry Extension on the SaaS Environment and Offline POS
 
 This is an AL extension created by LS Retail that is not yet included in LS Central. Its sole purpose is to trigger and send the telemetry events required to track the sending transactions flow, which are the events used by this dashboard.
+
+The extension must be installed on **both** sides of the replication flow, because the lifecycle events are emitted from different environments:
+
+- On each **Offline POS** (on-premises), where the `Posted` and `Enqueued` stages occur.
+- On the **SaaS (Head Office) environment**, where the `Applied` stage occurs when the transaction is fetched and applied.
+
+If the extension is missing on either side, the corresponding lifecycle events will not be emitted and the dashboard will show an incomplete picture of the replication flow.
 
 The extension `.app` file is located in this repository at:
 
@@ -73,9 +80,10 @@ The extension `.app` file is located in this repository at:
 al-telemetry-app/LS Retail - CAP_Replication Telemetry_1.0.0.0.app
 ```
 
-Install the telemetry extension on each Offline POS:
+Install the telemetry extension on both the SaaS environment and each Offline POS:
 
-- Deploy the extension to each Offline POS environment using the **Extension Management** page in Business Central (upload the `.app` file).
+- **SaaS (Head Office) environment:** Deploy the extension using the **Extension Management** page in the online environment (upload the `.app` file).
+- **Each Offline POS (on-premises):** Deploy the extension to each Offline POS environment using the **Extension Management** page in Business Central (upload the `.app` file), or from the Business Central Administration Shell using the standard Powershell modules.
 - Verify that telemetry events are being received in Application Insights after installation.
 
 ---

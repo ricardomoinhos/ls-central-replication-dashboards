@@ -74,23 +74,6 @@ codeunit 93500 "LSC Telemetry Subscribers"
         TelemetryMsg.SendEvent(Verbosity::Normal, TelemetryScope::All);
     end;
 
-    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"LSC Import Trans. Ext. Public", OnUploadTransPacketCalled, '', false, false)]
-    // local procedure "LSC Import Trans. Ext. Public_OnUploadTransPacketCalled"(var MessageLog: Record "LSC Trans External Message Log"; var ErrorText: Text)
-    // begin
-    //     TelemetryMsg.AddHeader("LSC CAP Telemetry Event"::"POS - Sending transaction lifecycle", 'OnUploadTransPacketCalled');
-
-    //     TelemetryUtils.AddCommonDimensions(TelemetryMsg);
-    //     TelemetryUtils.AddTransactionKey(TelemetryMsg, MessageLog."Store No.", MessageLog."POS Terminal No.", MessageLog."Transaction No.");
-    //     TelemetryUtils.AddResult(TelemetryMsg, ErrorText <> '', ErrorText);
-    //     TelemetryUtils.AddStage(TelemetryMsg, "LSC CAP Replic. Stage"::Applied);
-
-    //     TelemetryMsg.Add(StoreNoLabel, MessageLog."Store No.");
-    //     TelemetryMsg.Add(POSTerminalNoLabel, MessageLog."POS Terminal No.");
-    //     TelemetryMsg.Add(TransactionNoLabel, Format(MessageLog."Transaction No."));
-
-    //     TelemetryMsg.SendEvent(Verbosity::Normal, TelemetryScope::All);
-    // end;
-
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"LSC Web Repl. Functions", OnUploadTransPacketCalled, '', false, false)]
     local procedure "LSC Web Repl. Functions_OnUploadTransPacketCalled"(var MessageLog: Record "LSC Trans External Message Log"; var UploadTransPacketResult: Boolean; var ErrorText: Text)
     begin
