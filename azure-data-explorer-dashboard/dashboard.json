@@ -781,6 +781,50 @@
             "showOnPages": {
                 "kind": "all"
             }
+        },
+        {
+            "kind": "string",
+            "id": "b1c2d3e4-f5a6-7b8c-9d0e-1f2a3b4c5d6e",
+            "displayName": "Filter By",
+            "description": "Filter the Transaction Replication Status panel by result type",
+            "variableName": "param_filterBy",
+            "selectionType": "scalar",
+            "includeAllOption": false,
+            "defaultValue": {
+                "kind": "value",
+                "value": "all"
+            },
+            "dataSource": {
+                "kind": "static",
+                "values": [
+                    {
+                        "displayText": "All",
+                        "value": "all"
+                    },
+                    {
+                        "displayText": "Warning and Errors",
+                        "value": "warningsAndErrors"
+                    },
+                    {
+                        "displayText": "Success Only",
+                        "value": "successOnly"
+                    },
+                    {
+                        "displayText": "Warnings Only",
+                        "value": "warningsOnly"
+                    },
+                    {
+                        "displayText": "Errors Only",
+                        "value": "errorsOnly"
+                    }
+                ]
+            },
+            "showOnPages": {
+                "kind": "selection",
+                "pageIds": [
+                    "d24b07fa-ae50-43bf-9d63-87515e37d492"
+                ]
+            }
         }
     ],
     "dataSources": [
@@ -823,12 +867,13 @@
                 "kind": "inline",
                 "dataSourceId": "0c1bbbfd-e4cd-4944-b7d3-bbb3a25dd2af"
             },
-            "text": "//\nlet t =\nbaseTransactions\n| where timestamp between (_startTime .. _endTime)\n;\n//\n// Get POS Mapping table for possible filtering\n//\nlet posMapping = pos_mapping\n  | where user_telemetry_id has_any (param_userTelemetryId)\n  | where pos_name has_any (param_posName)\n  | where pos_terminal_no has_any (param_posTerminalNo)\n;\n//\n// 1) Latest event per TransactionKey (for \"current status\" + last event details)\n//\nlet latestPerTxn =\nt\n| summarize\n    arg_max(timestamp,\n            eventId, message, Stage, Result, StoreNo, POSTerminalNo, TransactionNo, TableNo, FailureReason,\n            alUserId, alSessionId, environmentName, environmentType\n    ) by TransactionKey;\n//\n// 2) Last sent time per TransactionKey\n//\nlet lastSentPerTxn =\n  t\n  | where Stage == 'Enqueued'\n  | where Result == 'Success'\n  | summarize LastSentTime = max(timestamp) by TransactionKey\n;\n//\n// 3) Last error time (and optionally last error text) per TransactionKey\n//\nlet lastErrorPerTxn =\n  t\n  | where Result == 'Error'\n  | summarize\n    LastErrorTime = max(timestamp),\n    LastFailureReason = arg_max(timestamp, FailureReason).FailureReason\n    by TransactionKey\n;\n//\nlatestPerTxn\n| join kind=leftouter lastSentPerTxn on TransactionKey\n| join kind=leftouter lastErrorPerTxn on TransactionKey\n| join kind=inner (\n    posMapping\n    | project pos_terminal_no, user_telemetry_id, pos_name  // Keep only needed fields\n)\n// on $left.usertelemetryId == $right.user_telemetry_id\non $left.POSTerminalNo == $right.pos_terminal_no\n| extend TransactionStatus = case(\n    (Stage == 'Posted'), \"Transaction has been posted in POS but not yet sent to Service Bus/Azure Storage\",\n    (Stage == 'Enqueued' and Result == 'Error'), \"Transaction has not been sent to Service Bus/Azure Storage due to an error\",\n    (Stage == 'Enqueued' and Result == 'Success'), \"Transaction has been successfully sent to Service Bus/Azure Storage\",\n    (Stage == 'Applied' and Result == 'Error'), \"Transaction has been posted in POS and sent to Service Bus/Azure Storage but failed to be applied in Headoffice\",\n    (Stage == 'Applied' and Result == 'Success'), \"Transaction has been successfully applied in Headoffice\",\n    \"Unknown status\"\n)\n| project\n    timestamp,                  // last event timestamp\n    Stage,\n    Result,\n    TransactionNo,\n    StoreNo,\n    POSTerminalNo,\n    TransactionStatus,\n    FailureReason,                  // error text on the *last event* (if last event is 0003)\n    eventId,                    // last event id\n    LastSentTime,\n    LastErrorTime,\n    LastFailureReason,\n    message,\n    TransactionKey,\n    alUserId,\n    alSessionId,\n    TableNo\n| sort by timestamp desc",
+            "text": "//\nlet t =\nbaseTransactions\n| where timestamp between (_startTime .. _endTime)\n;\n//\n// Get POS Mapping table for possible filtering\n//\nlet posMapping = pos_mapping\n  | where user_telemetry_id has_any (param_userTelemetryId)\n  | where pos_name has_any (param_posName)\n  | where pos_terminal_no has_any (param_posTerminalNo)\n;\n//\n// 1) Latest event per TransactionKey (for \"current status\" + last event details)\n//\nlet latestPerTxn =\nt\n| summarize\n    arg_max(timestamp,\n            eventId, message, Stage, Result, StoreNo, POSTerminalNo, TransactionNo, TableNo, FailureReason,\n            alUserId, alSessionId, environmentName, environmentType\n    ) by TransactionKey;\n//\n// 2) Last sent time per TransactionKey\n//\nlet lastSentPerTxn =\n  t\n  | where Stage == 'Enqueued'\n  | where Result == 'Success'\n  | summarize LastSentTime = max(timestamp) by TransactionKey\n;\n//\n// 3) Last error time (and optionally last error text) per TransactionKey\n//\nlet lastErrorPerTxn =\n  t\n  | where Result == 'Error'\n  | summarize\n    LastErrorTime = max(timestamp),\n    LastFailureReason = arg_max(timestamp, FailureReason).FailureReason\n    by TransactionKey\n;\n//\nlatestPerTxn\n| join kind=leftouter lastSentPerTxn on TransactionKey\n| join kind=leftouter lastErrorPerTxn on TransactionKey\n| join kind=inner (\n    posMapping\n    | project pos_terminal_no, user_telemetry_id, pos_name  // Keep only needed fields\n)\n// on $left.usertelemetryId == $right.user_telemetry_id\non $left.POSTerminalNo == $right.pos_terminal_no\n| extend TransactionStatus = case(\n    (Stage == 'Posted'), \"Transaction has been posted in POS but not yet sent to Service Bus/Azure Storage\",\n    (Stage == 'Enqueued' and Result == 'Error'), \"Transaction has not been sent to Service Bus/Azure Storage due to an error\",\n    (Stage == 'Enqueued' and Result == 'Success'), \"Transaction has been successfully sent to Service Bus/Azure Storage\",\n    (Stage == 'Applied' and Result == 'Error'), \"Transaction has been posted in POS and sent to Service Bus/Azure Storage but failed to be applied in Headoffice\",\n    (Stage == 'Applied' and Result == 'Success'), \"Transaction has been successfully applied in Headoffice\",\n    \"Unknown status\"\n)\n| where (param_filterBy == \"all\")\n    or (param_filterBy == \"warningsAndErrors\" and ((Stage in (\"Posted\", \"Enqueued\") and Result == \"Success\") or (Stage == \"Applied\" and Result == \"Error\")))\n    or (param_filterBy == \"successOnly\" and (Stage == \"Applied\" and Result == \"Success\"))\n    or (param_filterBy == \"warningsOnly\" and (Stage in (\"Posted\", \"Enqueued\") and Result == \"Success\"))\n    or (param_filterBy == \"errorsOnly\" and Result == \"Error\")\n| project\n    timestamp,                  // last event timestamp\n    Stage,\n    Result,\n    TransactionNo,\n    StoreNo,\n    POSTerminalNo,\n    TransactionStatus,\n    FailureReason,                  // error text on the *last event* (if last event is 0003)\n    eventId,                    // last event id\n    LastSentTime,\n    LastErrorTime,\n    LastFailureReason,\n    message,\n    TransactionKey,\n    alUserId,\n    alSessionId,\n    TableNo\n| sort by timestamp desc",
             "id": "4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f9a",
             "usedVariables": [
                 "_endTime",
                 "_startTime",
                 "baseTransactions",
+                "param_filterBy",
                 "param_posName",
                 "param_posTerminalNo",
                 "param_userTelemetryId",
