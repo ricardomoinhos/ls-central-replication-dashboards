@@ -1,9 +1,9 @@
 {
-    "$schema": "https://dataexplorer.azure.com/static/d/schema/75/dashboard.json",
-    "id": "c2d31670-149a-4d42-a5d8-7f5fa9859726",
-    "eTag": "6321a5fb-6bd7-4f2b-a82d-22fb31561c91",
+    "$schema": "https://dataexplorer.azure.com/static/d/schema/76/dashboard.json",
+    "id": "db154dfc-8cd7-402d-b65c-f0f9063eed24",
+    "eTag": "77d635eb-5c60-41d2-a6d7-e4c24d1f8ed0",
     "title": "OfflinePOS-Transactions_Dashboard",
-    "schema_version": 75,
+    "schema_version": 76,
     "tiles": [
         {
             "id": "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
@@ -25,7 +25,14 @@
                 "colorRulesDisabled": false,
                 "crossFilterDisabled": false,
                 "drillthroughDisabled": false,
-                "crossFilter": [],
+                "crossFilter": [
+                    {
+                        "interaction": "column",
+                        "property": "POSTerminalNo",
+                        "parameterId": "eaed234e-a5eb-4977-a8dd-f376cf795422",
+                        "disabled": false
+                    }
+                ],
                 "drillthrough": [],
                 "table__renderLinks": [],
                 "colorRules": [
@@ -165,7 +172,14 @@
                 "colorRulesDisabled": false,
                 "crossFilterDisabled": false,
                 "drillthroughDisabled": false,
-                "crossFilter": [],
+                "crossFilter": [
+                    {
+                        "interaction": "column",
+                        "property": "POSTerminalNo",
+                        "parameterId": "eaed234e-a5eb-4977-a8dd-f376cf795422",
+                        "disabled": false
+                    }
+                ],
                 "drillthrough": [],
                 "table__renderLinks": [],
                 "colorRules": [
@@ -264,6 +278,12 @@
                         "interaction": "column",
                         "property": "posName",
                         "parameterId": "9cabfeb1-a5c3-441c-8471-77ece08d2a5e",
+                        "disabled": false
+                    },
+                    {
+                        "interaction": "column",
+                        "property": "posTerminalNo",
+                        "parameterId": "eaed234e-a5eb-4977-a8dd-f376cf795422",
                         "disabled": false
                     }
                 ],
@@ -820,7 +840,7 @@
                 "kind": "inline",
                 "dataSourceId": "0c1bbbfd-e4cd-4944-b7d3-bbb3a25dd2af"
             },
-            "text": "let t =\nbaseTransactions\n| where timestamp between (_startTime .. _endTime)\n| project timestamp,\n    Stage,\n    Result,\n    TransactionKey,\n    StoreNo,\n    POSTerminalNo,\n    TransactionNo,\n    TableNo,\n    FailureReason,\n    eventId,\n    alUserId,\n    message\n;\n//\n// Step 1: Get the latest finish event per TransactionKey\n//\nlet finishedEvents = t\n| where Stage == 'Applied'\n    and Result == 'Success'\n| summarize MaxFinishTime = max(timestamp) by TransactionKey\n;\n//\n// Step 2: Get all error events\n//\nlet errorEvents = t\n| where Result == 'Error'\n;\n//\n// Step 3 - Get POS Mapping table for possible filtering\n//\nlet posMapping = pos_mapping\n| where user_telemetry_id has_any (param_userTelemetryId)\n| where pos_name has_any (param_posName)\n| where pos_terminal_no has_any (param_posTerminalNo)\n;\n//\n// Step 4: Join filtered errorEvents with posMapping to allow pos_name filtering\n//\nerrorEvents\n| join kind=leftanti finishedEvents on TransactionKey\n| extend TransactionStatus = case(\n    (Stage == 'Posted'), \"Transaction has been posted in POS but not yet sent to Service Bus/Azure Storage\",\n    (Stage == 'Enqueued' and Result == 'Error'), \"Transaction has not been sent to Service Bus/Azure Storage due to an error\",\n    (Stage == 'Enqueued' and Result == 'Success'), \"Transaction has been successfully sent to Service Bus/Azure Storage\",\n    (Stage == 'Applied' and Result == 'Error'), \"Transaction has been posted in POS and sent to Service Bus/Azure Storage but failed to be applied in Headoffice\",\n    (Stage == 'Applied' and Result == 'Success'), \"Transaction has been successfully applied in Headoffice\",\n    \"Unknown status\"\n)\n| project timestamp\n, StoreNo\n, POSTerminalNo\n, TransactionNo\n, TransactionStatus\n, Stage\n, Result\n, FailureReason\n, alUserId\n, TableNo\n, message\n, eventId\n| sort by timestamp desc",
+            "text": "let t =\nbaseTransactions\n| where timestamp between (_startTime .. _endTime)\n| project timestamp,\n    Stage,\n    Result,\n    TransactionKey,\n    StoreNo,\n    POSTerminalNo,\n    TransactionNo,\n    TableNo,\n    FailureReason,\n    eventId,\n    alUserId,\n    message\n;\n//\n// Step 1: Get the latest finish event per TransactionKey\n//\nlet finishedEvents = t\n| where Stage == 'Applied'\n    and Result == 'Success'\n| summarize MaxFinishTime = max(timestamp) by TransactionKey\n;\n//\n// Step 2: Get all error events\n//\nlet errorEvents = t\n| where Result == 'Error'\n;\n//\n// Step 3 - Get POS Mapping table for possible filtering\n//\nlet posMapping = pos_mapping\n| where user_telemetry_id has_any (param_userTelemetryId)\n| where pos_name has_any (param_posName)\n| where pos_terminal_no has_any (param_posTerminalNo)\n;\n//\n// Step 4: Join filtered errorEvents with posMapping to allow pos_name filtering\n//\nerrorEvents\n| join kind=leftanti finishedEvents on TransactionKey\n| join kind=inner (\n    posMapping\n    | project pos_terminal_no, user_telemetry_id, pos_name\n) on $left.POSTerminalNo == $right.pos_terminal_no\n| extend TransactionStatus = case(\n    (Stage == 'Posted'), \"Transaction has been posted in POS but not yet sent to Service Bus/Azure Storage\",\n    (Stage == 'Enqueued' and Result == 'Error'), \"Transaction has not been sent to Service Bus/Azure Storage due to an error\",\n    (Stage == 'Enqueued' and Result == 'Success'), \"Transaction has been successfully sent to Service Bus/Azure Storage\",\n    (Stage == 'Applied' and Result == 'Error'), \"Transaction has been posted in POS and sent to Service Bus/Azure Storage but failed to be applied in Headoffice\",\n    (Stage == 'Applied' and Result == 'Success'), \"Transaction has been successfully applied in Headoffice\",\n    \"Unknown status\"\n)\n| project timestamp\n, StoreNo\n, POSTerminalNo\n, TransactionNo\n, TransactionStatus\n, Stage\n, Result\n, FailureReason\n, alUserId\n, TableNo\n, message\n, eventId\n| sort by timestamp desc",
             "id": "5e6f7a8b-9c0d-1e2f-3a4b-5c6d7e8f9a0b",
             "usedVariables": [
                 "_endTime",
